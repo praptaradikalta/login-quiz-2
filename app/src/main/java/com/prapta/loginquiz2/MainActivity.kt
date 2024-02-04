@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LoginQuiz2Theme {
                 // A surface container using the 'background' color from the theme
-                LoginForm()
+                Greeting( "Android")
             }
         }
     }
@@ -35,17 +35,20 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
-
-
+            Text(
+                text ="Hello $name!" ,
+                modifier = modifier
+            )
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "spec:width=411dp,height=891dp", showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     LoginQuiz2Theme {
-        LoginForm()
+//        LoginForm()
+    Greeting("Android")
     }
 }
 
@@ -53,6 +56,7 @@ fun GreetingPreview() {
 @Composable
 fun GreetingPreviewDark() {
     LoginQuiz2Theme(darkTheme = true) {
-        LoginForm()
+//        LoginForm()
+        Greeting("Android")
     }
 }

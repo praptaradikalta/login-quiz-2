@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Login Quiz 2</string>
+    <string name="nip">NIP</string>
+    <string name="password">Password</string>
+    <string name="bisaakses">Belum bisa akses?</string>
+    <string name="cs_ikhwan">Hubungi CS Ikhwan</string>
+    <string name="cs_Akhwat">Hubungi CS Akhwat</string>
+    <string name="arn123">ARN123-1234</string>
+    <string name="bintang">*********</string>
 </resources>
