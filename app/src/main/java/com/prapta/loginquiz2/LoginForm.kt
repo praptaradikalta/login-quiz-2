@@ -75,17 +75,10 @@ import com.prapta.loginquiz2.ui.theme.Purple80
 
 @Composable
 fun LoginForm() {
-    Surface {
+    Surface{
         var credentials by remember { mutableStateOf(Credentials()) }
         val context = LocalContext.current
-        Column(
-            modifier = Modifier
-                .padding(40.dp)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-
-        ) {
+        Column{
             Row(Modifier.weight(0.75f)) {
                 Column(
                     verticalArrangement = Arrangement.Bottom,
@@ -169,7 +162,7 @@ fun LoginForm() {
                                     Toast
                                         .makeText(
                                             context,
-                                            "Menghubungi Cs Ikhwan...",
+                                            "Menghubungi CS Ikhwan...",
                                             Toast.LENGTH_SHORT
                                         )
                                         .show()
@@ -189,7 +182,7 @@ fun LoginForm() {
                                     Toast
                                         .makeText(
                                             context,
-                                            "Menghubungi Cs Akhwat...",
+                                            "Menghubungi CS Akhwat...",
                                             Toast.LENGTH_SHORT
                                         )
                                         .show()
@@ -237,7 +230,6 @@ fun LoginForm() {
                     }
                 }
             }
-
         }
     }
 }
