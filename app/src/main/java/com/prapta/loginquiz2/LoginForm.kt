@@ -16,6 +16,9 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Bottom
+import androidx.compose.foundation.layout.Arrangement.Top
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -78,155 +81,157 @@ fun LoginForm() {
     Surface{
         var credentials by remember { mutableStateOf(Credentials()) }
         val context = LocalContext.current
-        Column{
-            Row(Modifier.weight(0.75f)) {
-                Column(
-                    verticalArrangement = Arrangement.Bottom,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.hsi),
-                        contentDescription = null,
-                    )
-                }
+        Column(
+            modifier = Modifier
+//                .padding(40.dp)
+                .verticalScroll(rememberScrollState()),
+
+
+        ) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top=80.dp,bottom=30.dp)
+            ){
+                Image(
+                    painter = painterResource(R.drawable.hsi),
+                    contentDescription = null,
+                )
             }
-            Row(Modifier.weight(2f)) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 30.dp)
+//                    .verticalScroll(rememberScrollState())
+            ) {
+                Text(
+                    text = stringResource(R.string.nip),
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 30.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.nip),
-                        modifier = Modifier
-                            .padding(bottom = 16.dp)
-                            .align(alignment = Alignment.Start)
-                    )
-                    LoginField(
-                        value = credentials.login,
-                        onChange = {data -> credentials = credentials.copy(login = data)},
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(
-                        text = stringResource(R.string.password),
-                        modifier = Modifier
-                            .padding(bottom = 16.dp)
-                            .align(alignment = Alignment.Start)
-                    )
-                    PasswordField(
-                        value = credentials.pwd,
-                        onChange = { data -> credentials = credentials.copy(pwd = data)},
-                        submit = {
-                            if (!checkCredentials(credentials, context)) credentials = Credentials()
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Button(
-                        onClick = {
-                            if (!checkCredentials(credentials, context)) credentials = Credentials()
-                        },
+                        .padding(bottom = 16.dp)
+                        .align(alignment = Alignment.Start)
+                )
+                LoginField(
+                    value = credentials.login,
+                    onChange = {data -> credentials = credentials.copy(login = data)},
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = stringResource(R.string.password),
+                    modifier = Modifier
+                        .padding(bottom = 16.dp)
+                        .align(alignment = Alignment.Start)
+                )
+                PasswordField(
+                    value = credentials.pwd,
+                    onChange = { data -> credentials = credentials.copy(pwd = data)},
+                    submit = {
+                        if (!checkCredentials(credentials, context)) credentials = Credentials()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = {
+                        if (!checkCredentials(credentials, context)) credentials = Credentials()
+                    },
 //                enabled = credentials.isNotEmpty(),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth(),
 //
-                        colors =  ButtonDefaults.buttonColors(
-                            containerColor = Color.Blue
+                    colors =  ButtonDefaults.buttonColors(
+                        containerColor = Color.Blue
+                    )
+                ) {
+                    Text("Login")
+                }
+                Spacer(modifier = Modifier.height(25.dp))
+                Text(
+                    text = stringResource(R.string.bisaakses),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(bottom = 25.dp)
+                        .align(alignment = Alignment.CenterHorizontally)
+                )
+                Text(
+                    text = stringResource(R.string.cs_ikhwan),
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Blue,
+                    modifier = Modifier
+                        .padding(bottom = 25.dp)
+                        .align(alignment = Alignment.CenterHorizontally)
+                        .clickable(
+                            onClick = {
+                                Toast
+                                    .makeText(
+                                        context,
+                                        "Menghubungi CS Ikhwan...",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    .show()
+                            }
                         )
-                    ) {
-                        Text("Login")
-                    }
-                    Spacer(modifier = Modifier.height(25.dp))
-                    Text(
-                        text = stringResource(R.string.bisaakses),
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(bottom = 25.dp)
-                            .align(alignment = Alignment.CenterHorizontally)
-                    )
-                    Text(
-                        text = stringResource(R.string.cs_ikhwan),
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Blue,
-                        modifier = Modifier
-                            .padding(bottom = 25.dp)
-                            .align(alignment = Alignment.CenterHorizontally)
-                            .clickable(
-                                onClick = {
-                                    Toast
-                                        .makeText(
-                                            context,
-                                            "Menghubungi CS Ikhwan...",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                        .show()
-                                }
-                            )
-                    )
+                )
 
-                    Text(
-                        text = stringResource(R.string.cs_Akhwat),
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Blue,
-                        modifier = Modifier
-                            .padding(bottom = 25.dp)
-                            .align(alignment = Alignment.CenterHorizontally)
-                            .clickable(
-                                onClick = {
-                                    Toast
-                                        .makeText(
-                                            context,
-                                            "Menghubungi CS Akhwat...",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                        .show()
-                                }
-                            )
-                    )
+                Text(
+                    text = stringResource(R.string.cs_Akhwat),
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Blue,
+                    modifier = Modifier
+                        .padding(bottom = 25.dp)
+                        .align(alignment = Alignment.CenterHorizontally)
+                        .clickable(
+                            onClick = {
+                                Toast
+                                    .makeText(
+                                        context,
+                                        "Menghubungi CS Akhwat...",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    .show()
+                            }
+                        )
+                )
 
             }
-        }
-            Row(Modifier.weight(0.3f)) {
-                Column(
-                    verticalArrangement = Arrangement.Top,
+
+            Box(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(top=100.dp,bottom=10.dp)
+            ){
+                Button(
+                    onClick = {
+                        Toast.makeText(context, "Menuju Halaman FAQ...", Toast.LENGTH_SHORT)
+                            .show()
+                    },
+                    shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                        .border(
+                            BorderStroke(width = 1.dp, color = Color.Black),
+                            shape = RoundedCornerShape(50)
+                        ),
+                    colors =  ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent
+                    )
                 ) {
-                    Button(
-                        onClick = {
-                                Toast.makeText(context, "Menuju Halaman FAQ...", Toast.LENGTH_SHORT)
-                                    .show()
-                        },
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 30.dp)
-                            .border(
-                                BorderStroke(width = 1.dp, color = Color.Black),
-                                shape = RoundedCornerShape(50)
-                            ),
-                        colors =  ButtonDefaults.buttonColors(
-                            containerColor = Color.Transparent
+                    Row {
+                        Text(
+                            "Lihat FAQ",
+                            color = Color.Blue
                         )
-                    ) {
-                        Row {
-                            Text(
-                                "Lihat FAQ",
-                                color = Color.Blue
-                            )
-                            Spacer(modifier = Modifier.width(10.dp))
-                            Icon(
-                                Icons.Outlined.FileOpen,
-                                contentDescription = "",
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Icon(
+                            Icons.Outlined.FileOpen,
+                            contentDescription = "",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
                     }
                 }
             }
